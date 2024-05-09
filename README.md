@@ -1,24 +1,97 @@
-# FeaturitSdkAngular
+# Featurit SDK for Angular
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
+Angular wrapper of the Javascript client for the FeaturIT Feature Flag management platform.
 
-## Code scaffolding
+## Description
 
-Run `ng generate component component-name --project featurit-sdk-angular` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project featurit-sdk-angular`.
-> Note: Don't forget to add `--project featurit-sdk-angular` or else it will be added to the default project in your `angular.json` file. 
+This package aims to simplify the integration of the FeaturIT API in an Angular project.
 
-## Build
+## Getting started
 
-Run `ng build featurit-sdk-angular` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Dependencies
 
-## Publishing
+* "tslib": "^2.3.0"
+* "featurit-sdk-js-browser": "^0.0.4"
 
-After building your library with `ng build featurit-sdk-angular`, go to the dist folder `cd dist/featurit-sdk-angular` and run `npm publish`.
+### Installing
 
-## Running unit tests
+`npm install featurit-sdk-angular --save`
 
-Run `ng test featurit-sdk-angular` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Inside your app.module.ts add:
 
-## Further help
+```
+@NgModule({
+  ...,
+  imports: [
+    ...,
+    FeaturitModule.forRoot({
+      tenantIdentifier: "your_tenant_subdomain",
+      frontendApiKey: "your_frontend_api_key",
+      refreshIntervalMinutes: 5,
+      enableAnalytics: false,
+    }),
+  ],
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Basic Usage
+
+That's how you would use Featurit in one of your Angular components:
+
+```
+featureFlag: FeatureFlag = {
+  name: 'Feat',
+  active: false,
+  version: 'default',
+};
+
+constructor(private featurit: FeaturitService) {
+  ...
+}
+
+async ngOnInit() {
+  this.featurit.setUserContext(this.userContext);
+
+  await this.listenFeatureFlag();
+}
+
+private async listenFeatureFlag() {
+  await this.featurit.init();
+
+  this.featureFlag.active = this.featurit.isActive("YOUR_FEATURE_NAME");
+  this.featureFlag.version = this.featurit.version("YOUR_FEATURE_NAME");
+
+  // This part is optional but it will allow for automatic updates 
+  // on the application when the feature flag changes 
+  // are synced from the server.
+  
+  this.featurit.onChange(this.featureFlag).subscribe({
+    next: (newFeatureFlag: FeatureFlag) => {
+      console.log('AngularComponent: ', `Observed change, updating my value to ${JSON.stringify(newFeatureFlag)}`);
+      this.featureFlag = newFeatureFlag;
+    }
+  });
+}
+```
+
+### Defining your FeaturitUserContext
+
+In order to show different versions of a feature to different users,
+Featurit needs to know about the attributes your user has in a certain context.
+
+You can define the context using the as follows:
+
+```
+const contextData: FeaturitUserContext = get_your_user_context_data();
+
+this.featurit.setUserContext(contextData);
+
+await this.featurit.refresh();
+```
+
+### Authors
+
+FeaturIT
+
+https://www.featurit.com
+
+featurit.tech@gmail.com
