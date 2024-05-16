@@ -5,8 +5,8 @@
   "license": "MIT",
   "author": "FeaturIT",
   "peerDependencies": {
-    "@angular/common": "^16.1.0",
-    "@angular/core": "^16.1.0",
+    "@angular/common": "^15.0.0",
+    "@angular/core": "^15.0.0",
     "featurit-sdk-js-browser": "^0.0.4"
   },
   "dependencies": {
