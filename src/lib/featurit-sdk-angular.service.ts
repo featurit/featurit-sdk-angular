@@ -41,7 +41,14 @@ export class FeaturitService {
     return this.featurit.getUserContext();
   }
 
-  setUserContext(featuritUserContext: { userId: string, sessionId: string, ipAddress: string, customAttributes?: { [name: string]: string | number } }): void {
+  setUserContext(featuritUserContext: {
+    userId: string,
+    sessionId: string,
+    ipAddress: string,
+    customAttributes?: {
+      [name: string]: string | number
+    }
+  }): void {
     const customAttributesMap = new Map(Object.entries(featuritUserContext.customAttributes || {}));
     this.featurit.setUserContext(
       new DefaultFeaturitUserContext(
@@ -51,6 +58,22 @@ export class FeaturitService {
         customAttributesMap,
       )
     );
+  }
+
+  track(eventName: string, properties?: Record<string, string | number>): void {
+    this.featurit.track(eventName, properties);
+  }
+
+  trackPerson(): void {
+    this.featurit.trackPerson();
+  }
+
+  register(propertyName: string, propertyValue: any): void {
+    this.featurit.register(propertyName, propertyValue);
+  }
+
+  async flush(): Promise<void> {
+    await this.featurit.flush();
   }
 
   onChange(featureFlag: FeatureFlag): Observable<FeatureFlag> {

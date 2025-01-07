@@ -1,19 +1,32 @@
 {
   "name": "featurit-sdk-angular",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Angular SDK for FeaturIT",
   "license": "MIT",
   "author": "FeaturIT",
+  "keywords": [
+    "featurit",
+    "feature flag",
+    "feature toggle",
+    "user targeting",
+    "a b testing",
+    "feature",
+    "feature management"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/featurit/featurit-sdk-angular"
+  },
   "peerDependencies": {
     "@angular/common": "^15.0.0",
     "@angular/core": "^15.0.0",
-    "featurit-sdk-js-browser": "^0.0.4"
+    "featurit-sdk-js-browser": "^0.1.2"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "featurit-sdk-js-browser": "^0.0.4"
+    "featurit-sdk-js-browser": "^0.1.2"
   },
   "sideEffects": false
 }
