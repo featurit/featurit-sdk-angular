@@ -29,6 +29,7 @@ Inside your app.module.ts add:
       frontendApiKey: "your_frontend_api_key",
       refreshIntervalMinutes: 5,
       enableAnalytics: false,
+      enableTracking: false,
     }),
   ],
 ```
@@ -86,6 +87,52 @@ const contextData: FeaturitUserContext = get_your_user_context_data();
 this.featurit.setUserContext(contextData);
 
 await this.featurit.refresh();
+```
+
+### Event Tracking
+
+In order to track some event in your application, we need to initialize the Module with enableTracking set to true:
+
+```
+
+@NgModule({
+  ...,
+  imports: [
+    ...,
+  FeaturitModule.forRoot({
+    tenantIdentifier: "your_tenant_subdomain",
+    frontendApiKey: "your_frontend_api_key",
+    refreshIntervalMinutes: 5,
+    enableAnalytics: false,
+    enableTracking: true,
+  }),
+],
+
+// Once we initialize our Component, we can register global properties that will be tracked  
+// with every person and event.
+// We can also track the person associated with the event after setting the appropiate user context.
+async ngOnInit() {
+  // (OPTIONAL) We can register global properties that will be sent with every
+  // Person and Tracking Event from now on.
+  this.featurit.register("my-global-property", "my-global-property-value");
+
+  this.featurit.setUserContext(this.userContext);
+  
+  // This line will define the person to track (do this after setting the user context).
+  this.featurit.trackPerson();
+
+  await this.listenFeatureFlag();
+}
+
+// The track method will be used to send a new tracking event to the server.
+// We can add as many properties to our events as we want.
+this.featurit.track("my-event-name", {
+  "my-event-property": "my-property-value",
+});
+
+// (OPTIONAL) Sometimes we want the event to be sent inmediately to the server,
+// If so, we can use the following line:
+this.featurit.flush();
 ```
 
 ### Authors
