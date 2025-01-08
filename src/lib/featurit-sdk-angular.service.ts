@@ -21,7 +21,11 @@ export class FeaturitService {
     this.featurit = new Featurit(config);
   }
 
-  async init() {
+  async init(config?: FeaturitSetup) {
+    if (config != undefined) {
+      this.featurit = new Featurit(config);
+    }
+
     await this.featurit.init();
   }
 

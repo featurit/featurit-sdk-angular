@@ -74,6 +74,26 @@ private async listenFeatureFlag() {
 }
 ```
 
+If for some reason you need to send your api key credentials after the application has loaded, you can call the init method 
+with the full configuration instead.
+
+```
+private async my_method() {
+  const my_api_key = get_api_key_from_server();
+  const my_user_context = get_user_context();
+  
+  await this.featurit.init({
+    tenantIdentifier: "your_tenant_subdomain",
+    frontendApiKey: my_api_key,
+    refreshIntervalMinutes: 5,
+    enableAnalytics: true,
+    sendAnalyticsInterval: 1,
+    enableTracking: true,
+    featuritUserContext: my_user_context,
+  });
+}
+```
+
 ### Defining your FeaturitUserContext
 
 In order to show different versions of a feature to different users,
@@ -86,6 +106,7 @@ const contextData: FeaturitUserContext = get_your_user_context_data();
 
 this.featurit.setUserContext(contextData);
 
+// This call is optional and will retrieve the new values for the feature flags inmediately.
 await this.featurit.refresh();
 ```
 
