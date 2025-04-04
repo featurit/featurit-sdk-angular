@@ -11,7 +11,7 @@ This package aims to simplify the integration of the FeaturIT API in an Angular 
 ### Dependencies
 
 * "tslib": "^2.3.0"
-* "featurit-sdk-js-browser": "^0.0.4"
+* "featurit-sdk-js-browser": "^0.2.1"
 
 ### Installing
 
@@ -89,6 +89,7 @@ private async my_method() {
     enableAnalytics: true,
     sendAnalyticsInterval: 1,
     enableTracking: true,
+    sendBrowserInfo: true,
     featuritUserContext: my_user_context,
   });
 }
@@ -114,6 +115,8 @@ await this.featurit.refresh();
 
 In order to track some event in your application, we need to initialize the Module with enableTracking set to true:
 
+Here you will have to decide if you want to send additional browser info to the server with every event.
+
 ```
 
 @NgModule({
@@ -126,6 +129,7 @@ In order to track some event in your application, we need to initialize the Modu
     refreshIntervalMinutes: 5,
     enableAnalytics: false,
     enableTracking: true,
+    sendBrowserInfo: true,
   }),
 ],
 
@@ -147,6 +151,8 @@ async ngOnInit() {
 
 // The track method will be used to send a new tracking event to the server.
 // We can add as many properties to our events as we want.
+
+// Take into account that your properties can't start with an _underscore, as it is reserved.
 this.featurit.track("my-event-name", {
   "my-event-property": "my-property-value",
 });
@@ -162,4 +168,4 @@ FeaturIT
 
 https://www.featurit.com
 
-featurit.tech@gmail.com
+tech@featurit.com
