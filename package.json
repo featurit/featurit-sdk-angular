@@ -1,6 +1,6 @@
 {
   "name": "featurit-sdk-angular",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Angular SDK for FeaturIT",
   "license": "MIT",
   "author": "FeaturIT",
@@ -18,8 +18,8 @@
     "url": "https://github.com/featurit/featurit-sdk-angular"
   },
   "peerDependencies": {
-    "@angular/common": "15 - 18",
-    "@angular/core": "15 - 18",
+    "@angular/common": "15 - 19",
+    "@angular/core": "15 - 19",
     "featurit-sdk-js-browser": "^0.2.5"
   },
   "dependencies": {
