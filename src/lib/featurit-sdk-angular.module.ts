@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FeaturitService } from "./featurit-sdk-angular.service";
 import { FeaturitSetup } from "featurit-sdk-js-browser";
+import { FEATURIT_CONFIG } from './featurit-sdk-angular.config';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ export class FeaturitModule {
       providers: [
         FeaturitService,
         {
-          provide: 'config',
+          provide: FEATURIT_CONFIG,
           useValue: config,
         }
       ]

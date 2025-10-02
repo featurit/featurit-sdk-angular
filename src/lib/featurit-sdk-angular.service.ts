@@ -9,6 +9,7 @@ import {
   FeaturitSetup,
   FeaturitUserContext
 } from "featurit-sdk-js-browser";
+import { FEATURIT_CONFIG } from './featurit-sdk-angular.config';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class FeaturitService {
 
   private featurit: Featurit;
 
-  constructor(@Inject('config') config: FeaturitSetup) {
+  constructor(@Inject(FEATURIT_CONFIG) config: FeaturitSetup) {
     this.featurit = new Featurit(config);
   }
 

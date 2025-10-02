@@ -17,7 +17,7 @@ This package aims to simplify the integration of the FeaturIT API in an Angular 
 
 `npm install featurit-sdk-angular --save`
 
-Inside your app.module.ts add:
+If you are using the AppModule approach, inside your app.module.ts add:
 
 ```
 @NgModule({
@@ -30,8 +30,27 @@ Inside your app.module.ts add:
       refreshIntervalMinutes: 5,
       enableAnalytics: false,
       enableTracking: false,
+      sendBrowserInfo: true,
     }),
   ],
+```
+
+If instead you are using the functional approach, inside your app.config.ts add:
+
+```
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...,
+    provideFeaturit({
+      tenantIdentifier: "your_tenant_subdomain",
+      frontendApiKey: "your_frontend_api_key",
+      refreshIntervalMinutes: 5,
+      enableAnalytics: false,
+      enableTracking: true,
+      sendBrowserInfo: true,
+    }),
+  ]
+};
 ```
 
 ### Basic Usage
